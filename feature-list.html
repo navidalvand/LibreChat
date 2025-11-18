@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LibreChat - Complete Visual Documentation</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: white;
+            padding: 40px 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        header h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-tabs button {
+            padding: 12px 24px;
+            background: white;
+            border: 2px solid #667eea;
+            color: #667eea;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .nav-tabs button.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .nav-tabs button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .card h3 {
+            color: #764ba2;
+            margin: 20px 0 10px 0;
+        }
+
+        .mermaid {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .feature-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .feature-box h4 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .feature-box p {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .complexity-level {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 10px;
+            font-size: 0.85em;
+        }
+
+        .simple {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .moderate {
+            background: #FF9800;
+            color: white;
+        }
+
+        .complex {
+            background: #F44336;
+            color: white;
+        }
+
+        .architecture-box {
+            background: #f5f5f5;
+            border-left: 5px solid #667eea;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .implementation-timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: #667eea;
+        }
+
+        .timeline-content {
+            margin-left: 50px;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            flex: 1;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -8px;
+            top: 0;
+            width: 18px;
+            height: 18px;
+            background: #667eea;
+            border: 3px solid white;
+            border-radius: 50%;
+            box-shadow: 0 0 0 3px #667eea;
+        }
+
+        .timeline-content h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .matrix-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        .complexity-matrix {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .complexity-matrix td, .complexity-matrix th {
+            border: 2px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .complexity-matrix th {
+            background: #667eea;
+            color: white;
+            font-weight: bold;
+        }
+
+        .complexity-matrix tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .deployment-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .deployment-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .deployment-card h4 {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 10px;
+        }
+
+        .pros, .cons {
+            margin: 10px 0;
+            font-size: 0.95em;
+        }
+
+        .pros:before {
+            content: '✓ ';
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .cons:before {
+            content: '✗ ';
+            color: #FF6B6B;
+            font-weight: bold;
+        }
+
+        .data-flow {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        .flow-step:before {
+            content: '→';
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.5em;
+            margin: 0 15px;
+        }
+
+        .flow-step:first-child:before {
+            content: '';
+            margin: 0;
+        }
+
+        .integration-diagram {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .highlight {
+            background: #FFF3CD;
+            padding: 15px;
+            border-left: 4px solid #FFC107;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+
+        .capability-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .capability-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+
+        .capability-list li:before {
+            content: '◆';
+            color: #667eea;
+            margin-right: 10px;
+            font-size: 0.8em;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .comparison-table td, .comparison-table th {
+            border: 1px solid #ddd;
+            padding: 12px;
+        }
+
+        .comparison-table th {
+            background: #667eea;
+            color: white;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .icon-box {
+            text-align: center;
+            padding: 20px;
+            font-size: 3em;
+            margin: 10px 0;
+        }
+
+        footer {
+            text-align: center;
+            color: white;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .deployment-options {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-tabs {
+                flex-direction: column;
+            }
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 1000px) {
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .legend {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .legend-item {
+            display: inline-flex;
+            align-items: center;
+            margin: 5px 15px 5px 0;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 LibreChat Complete Visual Documentation</h1>
+            <p>Interactive guide to understanding LibreChat's architecture, features, and implementation strategy</p>
+        </header>
+
+        <div class="nav-tabs">
+            <button class="tab-btn active" data-tab="overview">System Overview</button>
+            <button class="tab-btn" data-tab="architecture">Architecture</button>
+            <button class="tab-btn" data-tab="features">Features Deep-Dive</button>
+            <button class="tab-btn" data-tab="integration">Integration Flows</button>
+            <button class="tab-btn" data-tab="deployment">Deployment Options</button>
+            <button class="tab-btn" data-tab="roadmap">Implementation Roadmap</button>
+            <button class="tab-btn" data-tab="complexity">Complexity Matrix</button>
+        </div>
+
+        <!-- SECTION 1: OVERVIEW -->
+        <div id="overview" class="section active">
+            <div class="card">
+                <h2>🎯 What is LibreChat?</h2>
+                <p>LibreChat is an open-source AI chat platform that serves as a modern alternative to ChatGPT, with powerful features for customization, integration, and deployment flexibility. Think of it as the foundation for building sophisticated conversational AI applications without vendor lock-in.</p>
+            </div>
+
+            <div class="card">
+                <h2>Core Value Proposition</h2>
+                <div class="mermaid">
+                    graph TB
+                        A["🎯 LibreChat<br/>Open Source AI Platform"]
+                        
+                        B["🔧 Multi-Provider<br/>Model Support"]
+                        C["🤖 No-Code Agents<br/>Framework"]
+                        D["🔌 Universal<br/>Integrations"]
+                        E["🏠 Self-Hosted<br/>Control"]
+                        F["🎨 Customizable<br/>UI/UX"]
+                        
+                        A --> B
+                        A --> C
+                        A --> D
+                        A --> E
+                        A --> F
+                        
+                        B --> B1["OpenAI, Anthropic<br/>Google, Azure<br/>Local Models"]
+                        C --> C1["Zero-code setup<br/>Multi-step workflows<br/>Specialized assistants"]
+                        D --> D1["MCP Protocol<br/>Any Tool/Service<br/>No code changes"]
+                        E --> E1["Full data control<br/>Offline operation<br/>Enterprise ready"]
+                        F --> F1["Dark mode<br/>Streaming responses<br/>Custom theming"]
+                        
+                        style A fill:#667eea,stroke:#333,stroke-width:3px,color:#fff
+                        style B fill:#764ba2,stroke:#333,stroke-width:2px,color:#fff
+                        style C fill:#764ba2,stroke:#333,stroke-width:2px,color:#fff
+                        style D fill:#764ba2,stroke:#333,stroke-width:2px,color:#fff
+                        style E fill:#764ba2,stroke:#333,stroke-width:2px,color:#fff
+                        style F fill:#764ba2,stroke:#333,stroke-width:2px,color:#fff
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Feature Categories at a Glance</h2>
+                <div class="feature-grid">
+                    <div class="feature-box">
+                        <h4>💬 Core Messaging</h4>
+                        <p>Real-time streaming, conversation branching, message editing, multimodal support</p>
+                    </div>
+                    <div class="feature-box">
+                        <h4>🤖 AI Integration</h4>
+                        <p>Multi-provider support, no-code agents, MCP tool integration</p>
+                    </div>
+                    <div class="feature-box">
+                        <h4>🎨 Content Generation</h4>
+                        <p>Code execution, generative UI, image generation, web search</p>
+                    </div>
+                    <div class="feature-box">
+                        <h4>🔒 Security & Auth</h4>
+                        <p>Multi-user isolation, flexible authentication, conversation sharing</p>
+                    </div>
+                    <div class="feature-box">
+                        <h4>💾 Infrastructure</h4>
+                        <p>Docker deployment, Kubernetes support, scalable architecture</p>
+                    </div>
+                    <div class="feature-box">
+                        <h4>🧠 Personalization</h4>
+                        <p>Memory system, custom presets, user preferences</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 2: ARCHITECTURE -->
+        <div id="architecture" class="section">
+            <div class="card">
+                <h2>🏗️ LibreChat System Architecture</h2>
+                <p>LibreChat is built on a modern, scalable architecture that separates concerns clearly. The frontend handles user interaction while the backend orchestrates AI provider communication, tool execution, and data persistence.</p>
+                
+                <div class="mermaid">
+                    graph TB
+                        subgraph Frontend["🖥️ Frontend Layer"]
+                            UI["React UI<br/>Real-time Interface"]
+                            WS["WebSocket Connection<br/>Bidirectional Streaming"]
+                        end
+                        
+                        subgraph Backend["🔧 Backend Layer"]
+                            API["Node.js/Express<br/>REST + WebSocket"]
+                            Auth["Authentication<br/>OAuth, LDAP, Email"]
+                            Router["Model Router<br/>Provider Selection"]
+                        end
+                        
+                        subgraph Services["🌐 External Services"]
+                            OAI["OpenAI<br/>GPT Models"]
+                            Claude["Anthropic<br/>Claude"]
+                            Google["Google<br/>Gemini"]
+                            Local["Local Models<br/>Ollama"]
+                        end
+                        
+                        subgraph Tools["🔧 Tool Ecosystem"]
+                            MCP["MCP Servers<br/>Universal Tools"]
+                            CodeAPI["Code Interpreter<br/>API"]
+                            WebSearch["Web Search<br/>Integration"]
+                        end
+                        
+                        subgraph Storage["💾 Data Layer"]
+                            DB["Database<br/>Conversations"]
+                            Cache["Redis Cache<br/>Sessions"]
+                            Vector["Vector DB<br/>Embeddings"]
+                        end
+                        
+                        UI -->|Send| WS
+                        WS -->|Receive| UI
+                        WS --> API
+                        API --> Auth
+                        API --> Router
+                        Router -->|Route| Services
+                        API --> Tools
+                        Router --> Tools
+                        API --> Storage
+                        
+                        style Frontend fill:#667eea,stroke:#333,stroke-width:2px,color:#fff
+                        style Backend fill:#764ba2,stroke:#333,stroke-width:2px,color:#fff
+                        style Services fill:#FF6B6B,stroke:#333,stroke-width:2px,color:#fff
+                        style Tools fill:#4ECDC4,stroke:#333,stroke-width:2px,color:#fff
+                        style Storage fill:#45B7D1,stroke:#333,stroke-width:2px,color:#fff
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🔄 Real-Time Message Flow</h2>
+                <p>This diagram shows how messages flow through LibreChat from user input to AI response and back to display:</p>
+                
+                <div class="mermaid">
+                    sequenceDiagram
+                        participant User as 👤 User
+                        participant Frontend as 🖥️ Frontend
+                        participant Backend as 🔧 Backend
+                        participant AI as 🤖 AI Provider
+                        
+                        User->>Frontend: Type & Send Message
+                        Frontend->>Backend: WebSocket: send_message()
+                        Backend->>Backend: Validate & Process
+                        Backend->>AI: Stream API Request
+                        
+                        AI-->>Backend: Streaming Tokens
+                        Backend-->>Frontend: WebSocket: token_received()
+                        Frontend-->>User: Progressive Text Display
+                        
+                        AI-->>Backend: Response Complete
+                        Backend->>Backend: Save to Database
+                        Backend-->>Frontend: WebSocket: message_complete()
+                        Frontend-->>User: Full Response Rendered
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🧩 Core Components Interaction</h2>
+                
+                <div class="architecture-box">
+                    <strong>🎯 Model Provider Layer</strong><br/>
+                    LibreChat abstracts all AI provider differences through a unified router. Users select any supported provider, and the system translates requests to that provider's API format, normalizes responses back to a unified format, and handles provider-specific error cases. This enables mid-conversation provider switching and comparison.
+                </div>
+
+                <div class="architecture-box">
+                    <strong>🔌 Tool Integration Layer</strong><br/>
+                    The MCP protocol serves as the universal tool adapter. Rather than hardcoding integrations for each service, MCP servers provide standardized tool definitions that LibreChat dynamically discovers and uses. This dramatically reduces complexity for adding new integrations.
+                </div>
+
+                <div class="architecture-box">
+                    <strong>💾 Persistence Layer</strong><br/>
+                    Conversations and messages are stored with tree-like structures supporting branching. User sessions are cached in Redis for fast access. Vector databases optionally store semantic embeddings for file search and RAG capabilities.
+                </div>
+
+                <div class="architecture-box">
+                    <strong>🔐 Security Layer</strong><br/>
+                    Authentication is pluggable, supporting multiple strategies (email, OAuth, LDAP). All database queries include user ID filters. API endpoints verify user ownership of resources before granting access.
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 3: FEATURES DEEP-DIVE -->
+        <div id="features" class="section">
+            <div class="card">
+                <h2>📚 Complete Feature Ecosystem</h2>
+                
+                <h3>💬 Messaging & Conversation Features</h3>
+                <div class="feature-grid">
+                    <div class="feature-box">
+                        <h4>Real-Time Streaming</h4>
+                        <p>Watch responses appear as the AI generates them, creating an interactive experience. WebSocket-based bidirectional communication.</p>
+                        <span class="complexity-level simple">Simple</span>
+                    </div>
+                    <div class="feature-box">
+                        <h4>Conversation Branching</h4>
+                        <p>Fork conversations to explore alternative discussion paths. Both branches maintain context while allowing different futures.</p>
+                        <span class="complexity-level moderate">Moderate</span>
+                    </div>
+                    <div class="feature-box">
+                        <h4>Message Editing</h4>
+                        <p>Edit previous messages and regenerate AI responses. Creates tree-based conversation history.</p>
+                        <span class="complexity-level moderate">Moderate</span>
+                    </div>
+                    <div class="feature-box">
+                        <h4>Temporary Chat</h4>
+                        <p>Private conversations that never appear in history, search, or bookmarks. Cleared when session ends.</p>
+                        <span class="complexity-level simple">Simple</span>
+                    </div>
+                    <div class="feature-box">
+                        <h4>Multimodal Support</h4>
+                        <p>Upload images, documents, audio, and code. AI understands all modality types within conversations.</p>
+                        <span class="complexity-level moderate">Moderate</span>
+                    </div>
+                    <div class="feature-box">
+                        <h4>Conversation Export</h4>
+                        <p>Export as screenshots, Markdown, JSON, or text. Import from ChatGPT or other platforms.</p>
+                        <span class="complexity-level simple">Simple</span>
+                    </div>
+                </div>
+
+                <h3>🤖 AI Integration & Model Management</h3>
+                <div class="feature-grid">
+                    <div class="feature-box">
+                        <h4>Multi-Provider Support</h4>
+                        <p>OpenAI, Anthropic, Google, Azure, AWS Bedrock, Groq, Deepseek, local models (Ollama), and more.</p>
+                        <span class="complexity-level complex">Complex</span>
+                    </div>
+                    <div class="feature-box">
+                        <h4>No-Code Agents</h4>
+                        <p>Build specialized AI assistants with custom instructions, tools, and capabilities through UI without code.</p>
+                        <span class="complexity-level complex">Complex</span>
+                    </div>
+                    <div class="feature-box">
+                        <h4>Model Context Protocol</h4>
+                        <p>Universal tool integration. Connect to any service through standardized MCP protocol without code changes.</p>
+                        <span class="complexity-level complex">Complex</span>
+                    </div>
+                    <div class="feature-box">
+                        <h4>Custom Presets</h4>
+                        <p>Save favorite models with configurations (temperature, tokens, etc.) for quick switching.</p>
+                        <span class="complexity-level simple">Simple</span>
+                    </div>
+                    <div class="feature-box">
+                        <h4>Mid-Chat Switching</h4>
+                        <p>Switch models and providers during conversations using fork feature. Compare responses across models.</p>
+                        <span class="complexity-level moderate">Moderate</span>
+                    </div>
+                    <div class="feature-box">
+                        <h4>Agent Chaining</h4>
+                        <p>Create sequences of agents (Mixture-of-Agents) where each agent's output feeds into the next.</p>
+                        <span class="complexity-level complex">Complex</span>
+                    </div>
+                </div>
+
+                <h3>🎨 Content Generation & Enhancement</h3>
+                <div class="feature-grid">
+                    <div class="feature-box">
+                        <h4>Code Interpreter</h4>
+                        <p>Execute code (Python, Node.js, Go, C/C++, Java, etc.) in secure sandbox. Agents can execute code automatically.</p>
+                        <span class="complexity-level moderate">Moderate</span>
+                    </div>
+                    <div class="feature-box">
+                        <h4>Generative UI (Artifacts)</h4>
+                        <p>Generate interactive React components, HTML apps, and Mermaid diagrams from descriptions.</p>
+                        <span class="complexity-level moderate">Moderate</span>
+                    </div>
+                    <div class="feature-box">
+                        <h4>Image Generation</h4>
+                        <p>OpenAI GPT-Image-1, DALL-E 3, Stable Diffusion, Flux. Generate and edit images in conversations.</p>
+                        <span class="complexity-level moderate">Moderate</span>
+                    </div>
+                    <div class="feature-box">
+                        <h4>Web Search</h4>
+                        <p>Search internet and retrieve current information. Three-component system: provider, scraper, reranker.</p>
+                        <span class="complexity-level moderate">Moderate</span>
+                    </div>
+                    <div class="feature-box">
+                        <h4>Document Processing</h4>
+                        <p>Extract text from PDFs, images, scanned documents using OCR. "Upload as Text" feature for direct inclusion.</p>
+                        <span class="complexity-level simple">Simple</span>
+                    </div>
+                    <div class="feature-box">
+                        <h4>File Search & RAG</h4>
+                        <p>Semantic search over document collections. Returns relevant chunks for context-aware responses.</p>
+                        <span class="complexity-level complex">Complex</span>
+                    </div>
+                </div>
+
+                <h3>🧠 Personalization & Memory</h3>
+                <div class="feature-grid">
+                    <div class="feature-box">
+                        <h4>Persistent Memory</h4>
+                        <p>System remembers user preferences, facts, and context across conversations. User-controlled toggle.</p>
+                        <span class="complexity-level moderate">Moderate</span>
+                    </div>
+                    <div class="feature-box">
+                        <h4>User Preferences</h4>
+                        <p>Save communication style preferences, topic interests, and custom instructions at user level.</p>
+                        <span class="complexity-level simple">Simple</span>
+                    </div>
+                    <div class="feature-box">
+                        <h4>Conversation Search</h4>
+                        <p>Full-text search using Meilisearch. Find messages by content quickly across conversation history.</p>
+                        <span class="complexity-level moderate">Moderate</span>
+                    </div>
+                </div>
+
+                <h3>🔒 Security & User Management</h3>
+                <div class="feature-grid">
+                    <div class="feature-box">
+                        <h4>Multi-User Isolation</h4>
+                        <p>Complete data separation between users. No user can access other users' conversations or data.</p>
+                        <span class="complexity-level moderate">Moderate</span>
+                    </div>
+                    <div class="feature-box">
+                        <h4>Flexible Authentication</h4>
+                        <p>Email/password, OAuth2, OIDC, LDAP/AD. Choose authentication strategy for your deployment.</p>
+                        <span class="complexity-level moderate">Moderate</span>
+                    </div>
+                    <div class="feature-box">
+                        <h4>Conversation Sharing</h4>
+                        <p>Share conversations with specific users or teams. Fine-grained permission control (view/edit).</p>
+                        <span class="complexity-level moderate">Moderate</span>
+                    </div>
+                    <div class="feature-box">
+                        <h4>Email Verification</h4>
+                        <p>Optional or required email verification for account creation. Password reset via secure links.</p>
+                        <span class="complexity-level simple">Simple</span>
+                    </div>
+                    <div class="feature-box">
+                        <h4>Role-Based Permissions</h4>
+                        <p>Admin controls over global settings, user management, and feature availability.</p>
+                        <span class="complexity-level moderate">Moderate</span>
+                    </div>
+                    <div class="feature-box">
+                        <h4>Token Usage Tracking</h4>
+                        <p>Monitor and limit per-user API consumption. Prevents runaway costs and abuse.</p>
+                        <span class="complexity-level simple">Simple</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 4: INTEGRATION FLOWS -->
+        <div id="integration" class="section">
+            <div class="card">
+                <h2>🔄 Data Flow Patterns</h2>
+                
+                <h3>Standard Chat with Web Search</h3>
+                <div class="mermaid">
+                    graph LR
+                        A["👤 User<br/>Question"]
+                        B["🔍 Search<br/>Provider"]
+                        C["🕷️ Scraper<br/>Extract Content"]
+                        D["📊 Reranker<br/>Rank Results"]
+                        E["🤖 AI Model<br/>Generate Response"]
+                        F["👤 User<br/>Response with<br/>Current Info"]
+                        
+                        A --> B
+                        B --> C
+                        C --> D
+                        D --> E
+                        E --> F
+                        
+                        style A fill:#667eea,stroke:#333,stroke-width:2px,color:#fff
+                        style B fill:#4ECDC4,stroke:#333,stroke-width:2px,color:#fff
+                        style C fill:#4ECDC4,stroke:#333,stroke-width:2px,color:#fff
+                        style D fill:#4ECDC4,stroke:#333,stroke-width:2px,color:#fff
+                        style E fill:#764ba2,stroke:#333,stroke-width:2px,color:#fff
+                        style F fill:#667eea,stroke:#333,stroke-width:2px,color:#fff
+                </div>
+
+                <h3>Agent with Code Execution</h3>
+                <div class="mermaid">
+                    graph LR
+                        A["👤 User<br/>Task with Data"]
+                        B["🤖 Agent<br/>Analyze"]
+                        C["💻 Code<br/>Generation"]
+                        D["🔒 Code<br/>Interpreter API"]
+                        E["📊 Execution<br/>Results"]
+                        F["🤖 Agent<br/>Synthesize"]
+                        G["👤 User<br/>Answer"]
+                        
+                        A --> B
+                        B --> C
+                        C --> D
+                        D --> E
+                        E --> F
+                        F --> G
+                        
+                        style A fill:#667eea,stroke:#333,stroke-width:2px,color:#fff
+                        style B fill:#764ba2,stroke:#333,stroke-width:2px,color:#fff
+                        style C fill:#764ba2,stroke:#333,stroke-width:2px,color:#fff
+                        style D fill:#F44336,stroke:#333,stroke-width:2px,color:#fff
+                        style E fill:#F44336,stroke:#333,stroke-width:2px,color:#fff
+                        style F fill:#764ba2,stroke:#333,stroke-width:2px,color:#fff
+                        style G fill:#667eea,stroke:#333,stroke-width:2px,color:#fff
+                </div>
+
+                <h3>MCP Tool Integration</h3>
+                <div class="mermaid">
+                    graph TB
+                        A["🤖 Agent or Chat"]
+                        B["🔌 MCP Client<br/>LibreChat"]
+                        C["🔌 MCP Server<br/>External Service"]
+                        D["🛠️ Tool<br/>Execution"]
+                        E["📤 Result<br/>Back to Agent"]
+                        
+                        A -->|Discover Tools| B
+                        B -->|Initialize Connection| C
+                        A -->|Tool Request| B
+                        B -->|Execute Tool| C
+                        C --> D
+                        D -->|Response| C
+                        C -->|Return Result| B
+                        B -->|Include in Context| E
+                        E --> A
+                        
+                        style A fill:#667eea,stroke:#333,stroke-width:2px,color:#fff
+                        style B fill:#764ba2,stroke:#333,stroke-width:2px,color:#fff
+                        style C fill:#4ECDC4,stroke:#333,stroke-width:2px,color:#fff
+                        style D fill:#4ECDC4,stroke:#333,stroke-width:2px,color:#fff
+                        style E fill:#667eea,stroke:#333,stroke-width:2px,color:#fff
+                </div>
+
+                <h3>Multi-Agent Workflow (Mixture-of-Agents)</h3>
+                <div class="mermaid">
+                    graph TB
+                        A["👤 User<br/>Complex Task"]
+                        
+                        B["Agent 1<br/>Research"]
+                        C["Agent 2<br/>Analysis"]
+                        D["Agent 3<br/>Synthesis"]
+                        
+                        E["🤖 Output<br/>Agent"]
+                        F["👤 Final<br/>Response"]
+                        
+                        A --> B
+                        A --> C
+                        A --> D
+                        
+                        B -->|Output| E
+                        C -->|Output| E
+                        D -->|Output| E
+                        
+                        E --> F
+                        
+                        style A fill:#667eea,stroke:#333,stroke-width:2px,color:#fff
+                        style B fill:#764ba2,stroke:#333,stroke-width:2px,color:#fff
+                        style C fill:#764ba2,stroke:#333,stroke-width:2px,color:#fff
+                        style D fill:#764ba2,stroke:#333,stroke-width:2px,color:#fff
+                        style E fill:#FF9800,stroke:#333,stroke-width:2px,color:#fff
+                        style F fill:#667eea,stroke:#333,stroke-width:2px,color:#fff
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🧩 Feature Dependencies Map</h2>
+                <div class="mermaid">
+                    graph TB
+                        Core["Core Messaging<br/>(Foundation)"]
+                        Auth["Authentication"]
+                        MultiProvider["Multi-Provider<br/>Support"]
+                        Search["Search<br/>Functionality"]
+                        Files["File Upload<br/>& Processing"]
+                        Agents["No-Code Agents"]
+                        MCP["MCP<br/>Integration"]
+                        Memory["Memory<br/>System"]
+                        CodeInt["Code<br/>Interpreter"]
+                        RAG["File Search<br/>& RAG"]
+                        WebSearch["Web<br/>Search"]
+                        ImageGen["Image<br/>Generation"]
+                        
+                        Core --> Auth
+                        Core --> MultiProvider
+                        Core --> Search
+                        Core --> Files
+                        
+                        MultiProvider --> Agents
+                        Files --> Agents
+                        
+                        Agents --> MCP
+                        Agents --> CodeInt
+                        Agents --> ImageGen
+                        
+                        Files --> RAG
+                        
+                        Auth --> Memory
+                        Core --> Memory
+                        
+                        WebSearch -.->|Optional| Agents
+                        
+                        style Core fill:#667eea,stroke:#333,stroke-width:3px,color:#fff
+                        style Auth fill:#764ba2,stroke:#333,stroke-width:2px,color:#fff
+                        style MultiProvider fill:#764ba2,stroke:#333,stroke-width:2px,color:#fff
+                        style Search fill:#764ba2,stroke:#333,stroke-width:2px,color:#fff
+                        style Files fill:#764ba2,stroke:#333,stroke-width:2px,color:#fff
+                        style Agents fill:#FF9800,stroke:#333,stroke-width:2px,color:#fff
+                        style MCP fill:#4ECDC4,stroke:#333,stroke-width:2px,color:#fff
+                        style Memory fill:#764ba2,stroke:#333,stroke-width:2px,color:#fff
+                        style CodeInt fill:#F44336,stroke:#333,stroke-width:2px,color:#fff
+                        style RAG fill:#4ECDC4,stroke:#333,stroke-width:2px,color:#fff
+                        style WebSearch fill:#4ECDC4,stroke:#333,stroke-width:2px,color:#fff
+                        style ImageGen fill:#764ba2,stroke:#333,stroke-width:2px,color:#fff
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 5: DEPLOYMENT OPTIONS -->
+        <div id="deployment" class="section">
+            <div class="card">
+                <h2>🚀 Deployment Architecture Comparison</h2>
+                
+                <div class="deployment-options">
+                    <div class="deployment-card">
+                        <h4>🏠 Local Development</h4>
+                        <p style="margin-bottom: 10px;"><strong>Best for:</strong> Getting started, testing, single-user</p>
+                        <div class="pros">Instant setup</div>
+                        <div class="pros">Full offline capability</div>
+                        <div class="pros">No infrastructure needed</div>
+                        <div class="cons">Single user only</div>
+                        <div class="cons">Limited scalability</div>
+                    </div>
+
+                    <div class="deployment-card">
+                        <h4>🐳 Docker Compose</h4>
+                        <p style="margin-bottom: 10px;"><strong>Best for:</strong> Small teams, quick deployment</p>
+                        <div class="pros">Simple setup (one command)</div>
+                        <div class="pros">Includes database + app</div>
+                        <div class="pros">Multi-user ready</div>
+                        <div class="cons">Single machine only</div>
+                        <div class="cons">Limited scaling</div>
+                    </div>
+
+                    <div class="deployment-card">
+                        <h4>☁️ Cloud VM (AWS/Azure/GCP)</h4>
+                        <p style="margin-bottom: 10px;"><strong>Best for:</strong> Medium teams, cloud-native</p>
+                        <div class="pros">Cloud benefits (CDN, backup)</div>
+                        <div class="pros">Easy scaling up</div>
+                        <div class="pros">Global access</div>
+                        <div class="cons">Ongoing costs</div>
+                        <div class="cons">Requires DevOps knowledge</div>
+                    </div>
+
+                    <div class="deployment-card">
+                        <h4>☸️ Kubernetes</h4>
+                        <p style="margin-bottom: 10px;"><strong>Best for:</strong> Enterprise, high availability</p>
+                        <div class="pros">Auto-scaling</div>
+                        <div class="pros">High availability</div>
+                        <div class="pros">Production-grade</div>
+                        <div class="cons">Complex setup</div>
+                        <div class="cons">Requires K8s expertise</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🏗️ Typical Deployment Stack</h2>
+                <div class="two-column">
+                    <div>
+                        <h3>Application Components</h3>
+                        <ul class="capability-list">
+                            <li>React Frontend (Web UI)</li>
+                            <li>Node.js/Express Backend (API)</li>
+                            <li>Redis Cache (Sessions)</li>
+                            <li>MongoDB (Data Store)</li>
+                            <li>Meilisearch (Full-text Search)</li>
+                            <li>Vector DB (Optional - for RAG)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>External Services</h3>
+                        <ul class="capability-list">
+                            <li>AI Providers (OpenAI, Claude, etc.)</li>
+                            <li>Code Interpreter API</li>
+                            <li>Image Generation Services</li>
+                            <li>Web Search Services</li>
+                            <li>OCR Service (Optional)</li>
+                            <li>Email Service (for passwords)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>📊 Deployment Decision Tree</h2>
+                <div class="mermaid">
+                    graph TD
+                        A["How many users?"]
+                        
+                        B["1-2 Users"]
+                        C["Small Team<br/>3-20"]
+                        D["Medium<br/>20-500"]
+                        E["Enterprise<br/>500+"]
+                        
+                        B --> B1["Local or<br/>Docker<br/>Compose"]
+                        C --> C1["Docker<br/>Compose on<br/>Single VM"]
+                        D --> D1["Docker on<br/>Cloud VM OR<br/>Kubernetes"]
+                        E --> E1["Kubernetes<br/>with<br/>Auto-scaling"]
+                        
+                        A --> B
+                        A --> C
+                        A --> D
+                        A --> E
+                        
+                        style A fill:#667eea,stroke:#333,stroke-width:2px,color:#fff
+                        style B fill:#764ba2,stroke:#333,stroke-width:2px,color:#fff
+                        style C fill:#764ba2,stroke:#333,stroke-width:2px,color:#fff
+                        style D fill:#764ba2,stroke:#333,stroke-width:2px,color:#fff
+                        style E fill:#764ba2,stroke:#333,stroke-width:2px,color:#fff
+                        style B1 fill:#4ECDC4,stroke:#333,stroke-width:2px,color:#fff
+                        style C1 fill:#4ECDC4,stroke:#333,stroke-width:2px,color:#fff
+                        style D1 fill:#4ECDC4,stroke:#333,stroke-width:2px,color:#fff
+                        style E1 fill:#4ECDC4,stroke:#333,stroke-width:2px,color:#fff
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 6: IMPLEMENTATION ROADMAP -->
+        <div id="roadmap" class="section">
+            <div class="card">
+                <h2>🛣️ 8-Month Implementation Roadmap</h2>
+                <p>This roadmap shows a pragmatic approach to building a real-time chat application with LibreChat features. The strategy prioritizes visible value early while building necessary foundations.</p>
+
+                <div class="implementation-timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4>📍 Month 1-2: Foundation Phase</h4>
+                            <p><strong>Goal:</strong> Establish core messaging architecture and validate technical approach</p>
+                            <ul class="capability-list">
+                                <li>WebSocket infrastructure for real-time messaging</li>
+                                <li>Single AI model provider integration (OpenAI recommended)</li>
+                                <li>Email/password authentication</li>
+                                <li>Conversation persistence to database</li>
+                                <li>Load testing to validate scalability assumptions</li>
+                            </ul>
+                            <p style="margin-top: 10px;"><strong>📊 Expected Output:</strong> Working chat application with basic AI responses, message streaming, and user authentication.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4>📍 Month 2-4: Differentiation Phase</h4>
+                            <p><strong>Goal:</strong> Add features that create competitive advantage</p>
+                            <ul class="capability-list">
+                                <li>Multi-provider model support (add Claude, Google Gemini)</li>
+                                <li>Conversation branching and message editing</li>
+                                <li>Image upload support for vision models</li>
+                                <li>Basic artifacts (HTML/React) using Sandpack</li>
+                                <li>Conversation search using Meilisearch</li>
+                            </ul>
+                            <p style="margin-top: 10px;"><strong>📊 Expected Output:</strong> Advanced conversation features with multiple AI models and content generation capabilities.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4>📍 Month 4-6: Enhancement Phase</h4>
+                            <p><strong>Goal:</strong> Add specialized capabilities and enterprise features</p>
+                            <ul class="capability-list">
+                                <li>Image generation tool integration</li>
+                                <li>Web search capability through specialized services</li>
+                                <li>Memory system for user personalization</li>
+                                <li>Beginning of agents framework implementation</li>
+                                <li>OAuth2/OIDC authentication for enterprises</li>
+                            </ul>
+                            <p style="margin-top: 10px;"><strong>📊 Expected Output:</strong> Platform with specialized tools and enterprise authentication options.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4>📍 Month 6-8: Advanced Phase</h4>
+                            <p><strong>Goal:</strong> Complete advanced features and production hardening</p>
+                            <ul class="capability-list">
+                                <li>Complete agents system with all capabilities</li>
+                                <li>MCP framework implementation</li>
+                                <li>Code interpreter integration</li>
+                                <li>Advanced RAG/file search implementation</li>
+                                <li>Multi-workspace and team collaboration features</li>
+                            </ul>
+                            <p style="margin-top: 10px;"><strong>📊 Expected Output:</strong> Enterprise-ready platform with sophisticated AI capabilities.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight">
+                    <strong>💡 Key Strategy Points:</strong><br/>
+                    The phased approach ensures you have a working product within 2 months while progressively adding sophisticated features. Early focus on multi-provider support and conversation branching creates clear differentiation. Complex features like agents and MCP are saved for later phases after core architecture is solid and tested.
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 7: COMPLEXITY MATRIX -->
+        <div id="complexity" class="section">
+            <div class="card">
+                <h2>📊 Feature Implementation Complexity & Value Matrix</h2>
+                <p>This matrix helps prioritize features based on implementation effort versus user value. Aim to implement high-value, low-complexity features first.</p>
+
+                <div class="mermaid">
+                    graph TB
+                        subgraph HighValue["✅ HIGH VALUE - Implement First"]
+                            HV1["Multi-Provider<br/>Support"]
+                            HV2["Conversation<br/>Branching"]
+                            HV3["Message<br/>Editing"]
+                            HV4["Image Upload<br/>for Vision"]
+                            HV5["Web Search"]
+                        end
+                        
+                        subgraph MediumValue["🔄 MEDIUM VALUE - Phase 2"]
+                            MV1["Memory<br/>System"]
+                            MV2["Image<br/>Generation"]
+                            MV3["Artifacts"]
+                            MV4["Basic<br/>Authentication"]
+                            MV5["File Search/<br/>RAG"]
+                        end
+                        
+                        subgraph LowComplexity["LOW COMPLEXITY - Quick wins"]
+                            LC1["Temporary<br/>Chat"]
+                            LC2["Conversation<br/>Export"]
+                            LC3["Custom<br/>Presets"]
+                            LC4["Conversation<br/>Search"]
+                        end
+                        
+                        subgraph HighComplexity["⚠️ HIGH COMPLEXITY - Plan carefully"]
+                            HC1["Agents<br/>Framework"]
+                            HC2["MCP<br/>Integration"]
+                            HC3["Code<br/>Interpreter"]
+                            HC4["Kubernetes<br/>Deployment"]
+                        end
+                        
+                        style HighValue fill:#4CAF50,stroke:#333,stroke-width:2px,color:#fff
+                        style MediumValue fill:#FF9800,stroke:#333,stroke-width:2px,color:#fff
+                        style LowComplexity fill:#4ECDC4,stroke:#333,stroke-width:2px,color:#fff
+                        style HighComplexity fill:#F44336,stroke:#333,stroke-width:2px,color:#fff
+                        
+                        style HV1 fill:#4CAF50,stroke:#333,stroke-width:2px,color:#fff
+                        style HV2 fill:#4CAF50,stroke:#333,stroke-width:2px,color:#fff
+                        style HV3 fill:#4CAF50,stroke:#333,stroke-width:2px,color:#fff
+                        style HV4 fill:#4CAF50,stroke:#333,stroke-width:2px,color:#fff
+                        style HV5 fill:#4CAF50,stroke:#333,stroke-width:2px,color:#fff
+                        
+                        style MV1 fill:#FF9800,stroke:#333,stroke-width:2px,color:#fff
+                        style MV2 fill:#FF9800,stroke:#333,stroke-width:2px,color:#fff
+                        style MV3 fill:#FF9800,stroke:#333,stroke-width:2px,color:#fff
+                        style MV4 fill:#FF9800,stroke:#333,stroke-width:2px,color:#fff
+                        style MV5 fill:#FF9800,stroke:#333,stroke-width:2px,color:#fff
+                        
+                        style LC1 fill:#4ECDC4,stroke:#333,stroke-width:2px,color:#fff
+                        style LC2 fill:#4ECDC4,stroke:#333,stroke-width:2px,color:#fff
+                        style LC3 fill:#4ECDC4,stroke:#333,stroke-width:2px,color:#fff
+                        style LC4 fill:#4ECDC4,stroke:#333,stroke-width:2px,color:#fff
+                        
+                        style HC1 fill:#F44336,stroke:#333,stroke-width:2px,color:#fff
+                        style HC2 fill:#F44336,stroke:#333,stroke-width:2px,color:#fff
+                        style HC3 fill:#F44336,stroke:#333,stroke-width:2px,color:#fff
+                        style HC4 fill:#F44336,stroke:#333,stroke-width:2px,color:#fff
+                </div>
+
+                <h3 style="margin-top: 30px;">Feature Complexity & Implementation Time Estimates</h3>
+                <div class="matrix-container">
+                    <table class="complexity-matrix">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Complexity</th>
+                                <th>Implementation Time</th>
+                                <th>Dependencies</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Real-Time Messaging</strong></td>
+                                <td><span class="complexity-level moderate">Moderate</span></td>
+                                <td>1-2 weeks</td>
+                                <td>WebSocket, DB</td>
+                                <td>⭐⭐⭐⭐⭐</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Multi-Provider Support</strong></td>
+                                <td><span class="complexity-level complex">Complex</span></td>
+                                <td>2-3 weeks</td>
+                                <td>API abstraction layer</td>
+                                <td>⭐⭐⭐⭐⭐</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Conversation Branching</strong></td>
+                                <td><span class="complexity-level moderate">Moderate</span></td>
+                                <td>1-2 weeks</td>
+                                <td>Tree-structured DB</td>
+                                <td>⭐⭐⭐⭐</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Temporary Chat</strong></td>
+                                <td><span class="complexity-level simple">Simple</span></td>
+                                <td>2-3 days</td>
+                                <td>Session management</td>
+                                <td>⭐⭐⭐</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Image Generation</strong></td>
+                                <td><span class="complexity-level moderate">Moderate</span></td>
+                                <td>1 week</td>
+                                <td>API integration</td>
+                                <td>⭐⭐⭐⭐</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Web Search</strong></td>
+                                <td><span class="complexity-level moderate">Moderate</span></td>
+                                <td>1-2 weeks</td>
+                                <td>3 external services</td>
+                                <td>⭐⭐⭐⭐</td>
+                            </tr>
+                            <tr>
+                                <td><strong>No-Code Agents</strong></td>
+                                <td><span class="complexity-level complex">Complex</span></td>
+                                <td>3-4 weeks</td>
+                                <td>Tool infrastructure</td>
+                                <td>⭐⭐⭐⭐⭐</td>
+                            </tr>
+                            <tr>
+                                <td><strong>MCP Integration</strong></td>
+                                <td><span class="complexity-level complex">Complex</span></td>
+                                <td>2-3 weeks</td>
+                                <td>Protocol implementation</td>
+                                <td>⭐⭐⭐⭐⭐</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Code Interpreter</strong></td>
+                                <td><span class="complexity-level moderate">Moderate</span></td>
+                                <td>1 week</td>
+                                <td>Paid API subscription</td>
+                                <td>⭐⭐⭐⭐</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Memory System</strong></td>
+                                <td><span class="complexity-level moderate">Moderate</span></td>
+                                <td>1-2 weeks</td>
+                                <td>Agent model, DB</td>
+                                <td>⭐⭐⭐</td>
+                            </tr>
+                            <tr>
+                                <td><strong>File Search/RAG</strong></td>
+                                <td><span class="complexity-level complex">Complex</span></td>
+                                <td>2-3 weeks</td>
+                                <td>Vector DB, embeddings</td>
+                                <td>⭐⭐⭐⭐</td>
+                            </tr>
+                            <tr>
+                                <td><strong>OAuth2/LDAP Auth</strong></td>
+                                <td><span class="complexity-level moderate">Moderate</span></td>
+                                <td>1-2 weeks</td>
+                                <td>Auth provider</td>
+                                <td>⭐⭐⭐⭐</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Kubernetes Deploy</strong></td>
+                                <td><span class="complexity-level complex">Complex</span></td>
+                                <td>2-3 weeks</td>
+                                <td>DevOps expertise</td>
+                                <td>⭐⭐⭐</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🎯 Market-Specific Prioritization</h2>
+                
+                <h3>For Consumer Applications (B2C)</h3>
+                <div class="highlight">
+                    <strong>🎯 Priority Order:</strong>
+                    <ol style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>Polished UX</strong> - Streaming, branching, editing</li>
+                        <li><strong>Multiple Models</strong> - OpenAI + Claude early</li>
+                        <li><strong>Visual Content</strong> - Image upload, generation, artifacts</li>
+                        <li><strong>Personalization</strong> - Memory, preferences, custom presets</li>
+                        <li><strong>Advanced Features</strong> - Agents and code execution later</li>
+                    </ol>
+                </div>
+
+                <h3>For Enterprise Applications (B2B)</h3>
+                <div class="highlight">
+                    <strong>🎯 Priority Order:</strong>
+                    <ol style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>Robust Authentication</strong> - LDAP, OAuth2, SAML</li>
+                        <li><strong>Security & Isolation</strong> - Data encryption, audit trails</li>
+                        <li><strong>Model Flexibility</strong> - Support for enterprise preferred models</li>
+                        <li><strong>Integration Capabilities</strong> - APIs, webhooks, MCP support</li>
+                        <li><strong>Advanced Features</strong> - Agents for workflow automation</li>
+                    </ol>
+                </div>
+
+                <h3>For Specialized/Technical Use (Research, Education)</h3>
+                <div class="highlight">
+                    <strong>🎯 Priority Order:</strong>
+                    <ol style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>Code Capabilities</strong> - Code execution, output processing</li>
+                        <li><strong>File Handling</strong> - Upload, processing, search</li>
+                        <li><strong>Advanced Agents</strong> - Multi-step workflows, tool use</li>
+                        <li><strong>Model Variety</strong> - Open models (Llama, Mistral)</li>
+                        <li><strong>Extensibility</strong> - Custom integrations, plugins</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>LibreChat Complete Visual Documentation | Comprehensive guide to architecture, features, and implementation strategy</p>
+            <p style="margin-top: 10px; opacity: 0.8;">Created for senior developers evaluating LibreChat features for real-time chat applications</p>
+        </footer>
+    </div>
+
+    <script>
+        // Tab switching functionality
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const sections = document.querySelectorAll('.section');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active from all buttons and sections
+                tabBtns.forEach(b => b.classList.remove('active'));
+                sections.forEach(s => s.classList.remove('active'));
+
+                // Add active to clicked button and corresponding section
+                btn.classList.add('active');
+                const tabName = btn.getAttribute('data-tab');
+                document.getElementById(tabName).classList.add('active');
+
+                // Scroll to top
+                window.scrollTo(0, 0);
+            });
+        });
+
+        // Initialize Mermaid
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose'
+        });
+        mermaid.contentLoaded();
+    </script>
+</body>
+</html>
